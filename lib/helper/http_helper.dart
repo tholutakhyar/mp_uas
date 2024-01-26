@@ -14,6 +14,7 @@ class HttpHelper {
   final String urlKey = 'api_key=KEY_HERE';
   final String urlUpcoming = 'movie/upcoming';
   final String urlSearch = 'search/movie';
+  final String urlTopRated = 'movie/top_rated';
 
   Future<String> getUpcoming() async {
     final Uri upcoming = Uri.parse('$urlBase$urlUpcoming?$urlKey&$urlLanguage');
@@ -29,6 +30,19 @@ class HttpHelper {
   Future<List> getUpcomingAsList() async {
     final Uri upcoming = Uri.parse('$urlBase$urlUpcoming?$urlKey&$urlLanguage');
     http.Response result = await http.get(upcoming);
+    if (result.statusCode == HttpStatus.ok) {
+      final jsonResponseBody = json.decode(result.body); //1
+      final movieObjects = jsonResponseBody['results']; //2
+      List movies = movieObjects.map((json) => Movie.fromJson(json)).toList();
+      return movies;
+    } else {
+      return [];
+    }
+  }
+
+  Future<List> getTopRatedAsList() async {
+    final Uri topRated = Uri.parse('$urlBase$urlTopRated?$urlKey&$urlLanguage');
+    http.Response result = await http.get(topRated);
     if (result.statusCode == HttpStatus.ok) {
       final jsonResponseBody = json.decode(result.body); //1
       final movieObjects = jsonResponseBody['results']; //2

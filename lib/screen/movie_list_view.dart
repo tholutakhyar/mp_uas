@@ -43,6 +43,19 @@ class _MovieListViewState extends State<MovieListView> {
     });
   }
 
+  Future topRatedList() async {
+    //5
+    moviesCount = 0;
+    movies = [];
+    helper = HttpHelper();
+    List moviesFromAPI = [];
+    moviesFromAPI = await helper.getTopRatedAsList();
+    setState(() {
+      movies = moviesFromAPI;
+      moviesCount = movies.length;
+    });
+  }
+
   void toggleSearch() {
     setState(() {
       if (this.searchIcon.icon == Icons.search) {
@@ -52,7 +65,7 @@ class _MovieListViewState extends State<MovieListView> {
           onSubmitted: (text) {
             searchMovies(text);
           },
-          decoration: InputDecoration(hintText: 'Ketik kata pencarian'),
+          decoration: InputDecoration(hintText: 'Ketik Judul Disini...'),
           textInputAction: TextInputAction.search,
           style: TextStyle(
             color: Colors.white,
@@ -131,12 +144,23 @@ class _MovieListViewState extends State<MovieListView> {
         child: ListView(
           children: [
             ListTile(
+              title: Text('Top Rated'),
+              onTap: () {
+                Navigator.pop(context); //untuk menutup drawer
+                setState(() {
+                  this.searchIcon = Icon(Icons.search);
+                  this.titleBar = Text('Rating Tertinggi');
+                });
+                topRatedList();
+              },
+            ),
+            ListTile(
               title: Text('Upcoming'),
               onTap: () {
                 Navigator.pop(context); //untuk menutup drawer
                 setState(() {
                   this.searchIcon = Icon(Icons.search);
-                  this.titleBar = Text('Daftar Film');
+                  this.titleBar = Text('Yang Akan Datang');
                 });
                 defaultList(); //perintah getUpcoming()
               },
@@ -153,7 +177,7 @@ class _MovieListViewState extends State<MovieListView> {
                       searchMovies(text); //perintah cari Movie
                     },
                     decoration:
-                        InputDecoration(hintText: 'Ketik kata pencarian'),
+                        InputDecoration(hintText: 'Ketik Judul Disini...'),
                     textInputAction: TextInputAction.search,
                     style: TextStyle(color: Colors.white, fontSize: 20.0),
                   );
