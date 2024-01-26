@@ -3,35 +3,30 @@ import 'package:mp_uas/helper/http_helper.dart';
 import 'package:mp_uas/screen/movie_detail.dart';
 
 class MovieListView extends StatefulWidget {
-  //2
   const MovieListView({Key? key}) : super(key: key);
   @override
   State<MovieListView> createState() => _MovieListViewState();
 }
 
 class _MovieListViewState extends State<MovieListView> {
-  //3
   late int moviesCount;
   late List movies;
   late HttpHelper helper;
 
-  Icon searchIcon = Icon(Icons.search);
-  Widget titleBar = Text('Movie List');
+  Icon searchIcon = const Icon(Icons.search);
+  Widget titleBar = const Text('Movie List');
 
-  //tambahan iconBase
   final String iconBase = 'https://image.tmdb.org/t/p/w92/';
   final String defaultImage =
       'https://images.freeimages.com/images/large-previews/5eb/movie-clap board-1184339.jpg';
 
   @override
   void initState() {
-    //4
     defaultList();
     super.initState();
   }
 
   Future defaultList() async {
-    //5
     moviesCount = 0;
     movies = [];
     helper = HttpHelper();
@@ -44,7 +39,6 @@ class _MovieListViewState extends State<MovieListView> {
   }
 
   Future topRatedList() async {
-    //5
     moviesCount = 0;
     movies = [];
     helper = HttpHelper();
@@ -58,24 +52,24 @@ class _MovieListViewState extends State<MovieListView> {
 
   void toggleSearch() {
     setState(() {
-      if (this.searchIcon.icon == Icons.search) {
-        this.searchIcon = Icon(Icons.cancel);
-        this.titleBar = TextField(
+      if (searchIcon.icon == Icons.search) {
+        searchIcon = const Icon(Icons.cancel);
+        titleBar = TextField(
           autofocus: true,
           onSubmitted: (text) {
             searchMovies(text);
           },
-          decoration: InputDecoration(hintText: 'Ketik Judul Disini...'),
+          decoration: const InputDecoration(hintText: 'Ketik Judul Disini...'),
           textInputAction: TextInputAction.search,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 20.0,
           ),
         );
       } else {
         setState(() {
-          this.searchIcon = Icon(Icons.search);
-          this.titleBar = Text('Daftar Film');
+          searchIcon = const Icon(Icons.search);
+          titleBar = const Text('Daftar Film');
         });
         defaultList();
       }
@@ -99,10 +93,8 @@ class _MovieListViewState extends State<MovieListView> {
         actions: [IconButton(onPressed: toggleSearch, icon: searchIcon)],
       ),
       body: ListView.builder(
-        //6
         itemCount: moviesCount,
         itemBuilder: (context, position) {
-          // tambahan kode untuk akses image pada url
           if (movies[position].posterPath != null) {
             image = NetworkImage(iconBase + movies[position].posterPath);
           } else {
@@ -110,31 +102,24 @@ class _MovieListViewState extends State<MovieListView> {
           }
 
           return Card(
-            //7
             elevation: 2,
             child: ListTile(
               onTap: () {
-                //1
                 MaterialPageRoute route = MaterialPageRoute(
-                  //2
                   builder: (context) {
                     return MovieDetail(
                       selectedMovie: movies[position],
                     );
                   },
                 );
-                Navigator.push(context, route); //3
+                Navigator.push(context, route);
               },
               leading: CircleAvatar(
-                // leading adalah kolom di depan title
                 backgroundImage: image,
               ),
               title: Text(movies[position].title),
               subtitle: Text(
-                'Released: ' +
-                    movies[position].releaseDate +
-                    ' - Vote: ' +
-                    movies[position].voteAverage.toString(),
+                'Released:  ${movies[position].releaseDate} - Vote: ${movies[position].voteAverage}',
               ),
             ),
           );
@@ -144,42 +129,42 @@ class _MovieListViewState extends State<MovieListView> {
         child: ListView(
           children: [
             ListTile(
-              title: Text('Top Rated'),
+              title: const Text('Top Rated'),
               onTap: () {
-                Navigator.pop(context); //untuk menutup drawer
+                Navigator.pop(context);
                 setState(() {
-                  this.searchIcon = Icon(Icons.search);
-                  this.titleBar = Text('Rating Tertinggi');
+                  searchIcon = const Icon(Icons.search);
+                  titleBar = const Text('Rating Tertinggi');
                 });
                 topRatedList();
               },
             ),
             ListTile(
-              title: Text('Upcoming'),
-              onTap: () {
-                Navigator.pop(context); //untuk menutup drawer
-                setState(() {
-                  this.searchIcon = Icon(Icons.search);
-                  this.titleBar = Text('Yang Akan Datang');
-                });
-                defaultList(); //perintah getUpcoming()
-              },
-            ),
-            ListTile(
-              title: Text('Cari'),
+              title: const Text('Upcoming'),
               onTap: () {
                 Navigator.pop(context);
                 setState(() {
-                  this.searchIcon = Icon(Icons.cancel);
-                  this.titleBar = TextField(
+                  searchIcon = const Icon(Icons.search);
+                  titleBar = const Text('Yang Akan Datang');
+                });
+                defaultList();
+              },
+            ),
+            ListTile(
+              title: const Text('Cari'),
+              onTap: () {
+                Navigator.pop(context);
+                setState(() {
+                  searchIcon = const Icon(Icons.cancel);
+                  titleBar = TextField(
                     autofocus: true,
                     onSubmitted: (text) {
-                      searchMovies(text); //perintah cari Movie
+                      searchMovies(text);
                     },
-                    decoration:
-                        InputDecoration(hintText: 'Ketik Judul Disini...'),
+                    decoration: const InputDecoration(
+                        hintText: 'Ketik Judul Disini...'),
                     textInputAction: TextInputAction.search,
-                    style: TextStyle(color: Colors.white, fontSize: 20.0),
+                    style: const TextStyle(color: Colors.white, fontSize: 20.0),
                   );
                 });
               },

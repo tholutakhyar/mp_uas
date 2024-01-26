@@ -1,21 +1,28 @@
 class Movie {
-  int? id; //untuk data "id" pada JSON
-  String? title; //untuk data "title" pada JSON
-  double? voteAverage; //untuk data "vote_average" pada JSON
-  String? releaseDate; //untuk data "release_date" pada JSON
-  String? overview; //untuk data "overview" pada JSON
-  String? posterPath; //untuk data "poster_path" pada JSON
+  int? id;
+  String? title;
+  double? voteAverage;
+  String? releaseDate;
+  String? overview;
+  String? posterPath;
 
-  Movie(this.id, this.title, this.voteAverage, this.releaseDate, this.overview,
-      this.posterPath);
+  Movie({
+    required this.id,
+    required this.title,
+    required this.voteAverage,
+    required this.releaseDate,
+    required this.overview,
+    required this.posterPath,
+  });
 
-  Movie.fromJson(Map<String, dynamic> json) {
-    //1
-    this.id = json['id'] as int;
-    this.title = json['title'];
-    this.voteAverage = json['vote_average'] * 1.0 as double;
-    this.releaseDate = json["release_date"];
-    this.overview = json["overview"];
-    this.posterPath = json["poster_path"];
+  factory Movie.fromJson(Map<String, dynamic> json) {
+    return Movie(
+      id: json['id'] as int?,
+      title: json['title'] as String?,
+      voteAverage: (json['vote_average'] as num?)?.toDouble(),
+      releaseDate: json['release_date'] as String?,
+      overview: json['overview'] as String?,
+      posterPath: json['poster_path'] as String?,
+    );
   }
 }

@@ -24,7 +24,7 @@ class MovieDetail extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(children: [
             Container(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               height: screenHeight / 1.5,
               child: Image.network(path),
             ),
@@ -33,14 +33,13 @@ class MovieDetail extends StatelessWidget {
                 child: Text('${selectedMovie.overview}')),
             Container(
               padding: const EdgeInsets.fromLTRB(16, 10, 16, 5),
-              child: Expanded(
-                  child: Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text('Penilaian: $movieRate'),
                   Text('Tanggal Rilis: ${selectedMovie.releaseDate}')
                 ],
-              )),
+              ),
             ),
             Container(
               padding: const EdgeInsets.fromLTRB(16, 15, 16, 15),

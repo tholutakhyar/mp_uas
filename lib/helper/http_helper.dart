@@ -1,14 +1,9 @@
-//kode http_helper.dart
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:mp_uas/model/movie.dart';
 
 class HttpHelper {
-  /*
-  Kelas ini digunakan untuk mendapatkan data dari themoviedb
-  dengan metode Upcoming yang memberikan nilai return berupa teks
-  */
   final String urlBase = 'https://api.themoviedb.org/3/';
   final String urlLanguage = 'language=en-US';
   final String urlKey = 'api_key=KEY_HERE';
@@ -31,8 +26,8 @@ class HttpHelper {
     final Uri upcoming = Uri.parse('$urlBase$urlUpcoming?$urlKey&$urlLanguage');
     http.Response result = await http.get(upcoming);
     if (result.statusCode == HttpStatus.ok) {
-      final jsonResponseBody = json.decode(result.body); //1
-      final movieObjects = jsonResponseBody['results']; //2
+      final jsonResponseBody = json.decode(result.body);
+      final movieObjects = jsonResponseBody['results'];
       List movies = movieObjects.map((json) => Movie.fromJson(json)).toList();
       return movies;
     } else {
@@ -44,8 +39,8 @@ class HttpHelper {
     final Uri topRated = Uri.parse('$urlBase$urlTopRated?$urlKey&$urlLanguage');
     http.Response result = await http.get(topRated);
     if (result.statusCode == HttpStatus.ok) {
-      final jsonResponseBody = json.decode(result.body); //1
-      final movieObjects = jsonResponseBody['results']; //2
+      final jsonResponseBody = json.decode(result.body);
+      final movieObjects = jsonResponseBody['results'];
       List movies = movieObjects.map((json) => Movie.fromJson(json)).toList();
       return movies;
     } else {
