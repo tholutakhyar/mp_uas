@@ -59,7 +59,7 @@ class _MovieListViewState extends State<MovieListView> {
           onSubmitted: (text) {
             searchMovies(text);
           },
-          decoration: const InputDecoration(hintText: 'Ketik Judul Disini...'),
+          decoration: const InputDecoration(hintText: 'Search for movies...'),
           textInputAction: TextInputAction.search,
           style: const TextStyle(
             color: Colors.white,
@@ -69,7 +69,7 @@ class _MovieListViewState extends State<MovieListView> {
       } else {
         setState(() {
           searchIcon = const Icon(Icons.search);
-          titleBar = const Text('Daftar Film');
+          titleBar = const Text('Movies List');
         });
         defaultList();
       }
@@ -119,7 +119,7 @@ class _MovieListViewState extends State<MovieListView> {
               ),
               title: Text(movies[position].title),
               subtitle: Text(
-                'Released:  ${movies[position].releaseDate} - Vote: ${movies[position].voteAverage}',
+                'Released:  ${movies[position].releaseDate} - Rate: ${movies[position].voteAverage}',
               ),
             ),
           );
@@ -134,7 +134,7 @@ class _MovieListViewState extends State<MovieListView> {
                 Navigator.pop(context);
                 setState(() {
                   searchIcon = const Icon(Icons.search);
-                  titleBar = const Text('Rating Tertinggi');
+                  titleBar = const Text('Top Rated');
                 });
                 topRatedList();
               },
@@ -145,13 +145,13 @@ class _MovieListViewState extends State<MovieListView> {
                 Navigator.pop(context);
                 setState(() {
                   searchIcon = const Icon(Icons.search);
-                  titleBar = const Text('Yang Akan Datang');
+                  titleBar = const Text('Upcoming');
                 });
                 defaultList();
               },
             ),
             ListTile(
-              title: const Text('Cari'),
+              title: const Text('Search'),
               onTap: () {
                 Navigator.pop(context);
                 setState(() {
@@ -161,8 +161,8 @@ class _MovieListViewState extends State<MovieListView> {
                     onSubmitted: (text) {
                       searchMovies(text);
                     },
-                    decoration: const InputDecoration(
-                        hintText: 'Ketik Judul Disini...'),
+                    decoration:
+                        const InputDecoration(hintText: 'Search for movies...'),
                     textInputAction: TextInputAction.search,
                     style: const TextStyle(color: Colors.white, fontSize: 20.0),
                   );

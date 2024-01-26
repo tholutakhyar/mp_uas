@@ -36,8 +36,8 @@ class MovieDetail extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Penilaian: $movieRate'),
-                  Text('Tanggal Rilis: ${selectedMovie.releaseDate}')
+                  Text('Rate: $movieRate'),
+                  Text('Released: ${selectedMovie.releaseDate}')
                 ],
               ),
             ),
