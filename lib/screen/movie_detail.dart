@@ -41,6 +41,10 @@ class MovieDetail extends StatelessWidget {
                   Text('Tanggal Rilis: ${selectedMovie.releaseDate}')
                 ],
               )),
+            ),
+            Container(
+              padding: const EdgeInsets.fromLTRB(16, 15, 16, 15),
+              child: const Text('Created by Tholut Akhyar, NIM: 21201040'),
             )
           ]),
         ));
