@@ -9,6 +9,8 @@ class MovieDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     String path;
     double screenHeight = MediaQuery.of(context).size.height;
+    double movieRate =
+        double.parse(((selectedMovie.voteAverage ?? 0)).toStringAsFixed(1));
     if (selectedMovie.posterPath != null) {
       path = 'https://image.tmdb.org/t/p/w500/${selectedMovie.posterPath}';
     } else {
@@ -27,7 +29,18 @@ class MovieDetail extends StatelessWidget {
         ),
         Container(
             padding: EdgeInsets.all(16),
-            child: Text('${selectedMovie.overview}'))
+            child: Text('${selectedMovie.overview}')),
+        Container(
+          padding: const EdgeInsets.all(16),
+          child: Expanded(
+              child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('Penilaian: $movieRate'),
+              Text('Tanggal Rilis: ${selectedMovie.releaseDate}')
+            ],
+          )),
+        )
       ]),
     );
   }
