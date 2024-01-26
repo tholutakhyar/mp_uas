@@ -18,30 +18,31 @@ class MovieDetail extends StatelessWidget {
           'https://images.freeimages.com/images/large-previews/5eb/movie-clap board-1184339.jpg';
     }
     return Scaffold(
-      appBar: AppBar(
-        title: Text('${selectedMovie.title}'),
-      ),
-      body: Column(children: [
-        Container(
-          padding: EdgeInsets.all(16),
-          height: screenHeight / 1.5,
-          child: Image.network(path),
+        appBar: AppBar(
+          title: Text('${selectedMovie.title}'),
         ),
-        Container(
-            padding: EdgeInsets.all(16),
-            child: Text('${selectedMovie.overview}')),
-        Container(
-          padding: const EdgeInsets.all(16),
-          child: Expanded(
-              child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('Penilaian: $movieRate'),
-              Text('Tanggal Rilis: ${selectedMovie.releaseDate}')
-            ],
-          )),
-        )
-      ]),
-    );
+        body: SingleChildScrollView(
+          child: Column(children: [
+            Container(
+              padding: EdgeInsets.all(16),
+              height: screenHeight / 1.5,
+              child: Image.network(path),
+            ),
+            Container(
+                padding: const EdgeInsets.fromLTRB(16, 5, 16, 5),
+                child: Text('${selectedMovie.overview}')),
+            Container(
+              padding: const EdgeInsets.fromLTRB(16, 10, 16, 5),
+              child: Expanded(
+                  child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Penilaian: $movieRate'),
+                  Text('Tanggal Rilis: ${selectedMovie.releaseDate}')
+                ],
+              )),
+            )
+          ]),
+        ));
   }
 }
