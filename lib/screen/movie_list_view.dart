@@ -36,7 +36,7 @@ class _MovieListViewState extends State<MovieListView> {
     movies = [];
     helper = HttpHelper();
     List moviesFromAPI = [];
-    moviesFromAPI = await helper.getUpComingAsList();
+    moviesFromAPI = await helper.getUpcomingAsList();
     setState(() {
       movies = moviesFromAPI;
       moviesCount = movies.length;

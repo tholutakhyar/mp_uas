@@ -26,7 +26,7 @@ class HttpHelper {
     }
   }
 
-  Future<List> getUpComingAsList() async {
+  Future<List> getUpcomingAsList() async {
     final Uri upcoming = Uri.parse('$urlBase$urlUpcoming?$urlKey&$urlLanguage');
     http.Response result = await http.get(upcoming);
     if (result.statusCode == HttpStatus.ok) {
